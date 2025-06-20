@@ -22,7 +22,7 @@ app.use(globalErrorHandler)
 
 const startServer = async (port) => {
   connectDB().then(() => {
-    app.listen(process.env.PORT, () => {
+    app.listen(port, () => {
       console.log('listening on port', port)
     })
   })
