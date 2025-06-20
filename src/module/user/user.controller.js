@@ -8,7 +8,7 @@ export const createUserController = async (req, res) => {
 
   const { password: _, ...userWithoutPassword } = user._doc
 
-  return res.status(200).json({ data: userWithoutPassword })
+  return res.status(200).json({ success: true, data: userWithoutPassword })
 }
 
 export const loginController = async (req, res) => {

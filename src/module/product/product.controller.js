@@ -10,10 +10,24 @@ export const createProductController = async (req, res) => {
   }
 
   const product = await Product.create({ name, price, description })
-  res.status(201).json({ success: true, data: product })
+  res.status(201).json({ data: product })
 }
 
 export const getProductsController = async (req, res) => {
-  const products = await Product.find()
-  res.status(200).json({ success: true, data: products })
+  const page = parseInt(req.query.page) || 1
+  const limit = parseInt(req.query.limit) || 10
+  const skip = (page - 1) * limit
+
+  const products = await Product.find().skip(skip).limit(limit)
+  const total = await Product.countDocuments()
+
+  res.status(200).json({
+    data: products,
+    pagination: {
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    },
+  })
 }
