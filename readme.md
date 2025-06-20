@@ -45,3 +45,7 @@ npm run start
 ```
 https://milo-assesment.onrender.com
 ```
+
+uri with prefix:
+`http://localhost:3000/api`,  
+`https://milo-assesment.onrender.com/api`
