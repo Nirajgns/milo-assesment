@@ -7,7 +7,7 @@ export const addToCartController = async (req, res) => {
   if (!productId || !quantity) {
     return res
       .status(400)
-      .json({ message: 'Product id and quantity greater than 0  required' })
+      .json({ message: 'Product id and (quantity greater than 0)  required' })
   }
 
   if (typeof quantity !== 'number' || !Number.isInteger(quantity)) {
@@ -21,9 +21,8 @@ export const addToCartController = async (req, res) => {
       { user, product: productId },
       { $inc: { quantity } },
       { new: true }
-    )
-      .populate('product')
-      .populate('user')
+    ).populate('product')
+    // .populate('user')
     return res.status(200).json({
       message: 'Product added to cart successfully',
       data: updatedProduct,
@@ -48,9 +47,8 @@ export const addToCartController = async (req, res) => {
 export const getCartController = async (req, res) => {
   const user = req.user
 
-  const cartItems = await CartItem.find({ user })
-    .populate('product')
-    .populate('user')
+  const cartItems = await CartItem.find({ user }).populate('product')
+  // .populate('user')
 
   res
     .status(200)
