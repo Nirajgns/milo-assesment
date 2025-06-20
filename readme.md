@@ -40,7 +40,7 @@ or
 npm run start
 ```
 
-# you can interact with the API using the endpoints provided in the postman collectoin in the repo and the the live link of the project
+# You can test the API using the Postman collection in the repo and the live project link.
 
 ```
 https://milo-assesment.onrender.com
