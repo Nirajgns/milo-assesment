@@ -4,6 +4,7 @@ import userRouter from './module/user/user.routes.js'
 import cookieParser from 'cookie-parser'
 import { globalErrorHandler } from './utils/errorHandler.js'
 import productRouter from './module/product/product.routes.js'
+import cartRouter from './module/cart/cart.routes.js'
 
 const app = express()
 
@@ -17,6 +18,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', userRouter)
 app.use('/api/products', productRouter)
+app.use('/api/cart', cartRouter)
 
 app.use(globalErrorHandler)
 
