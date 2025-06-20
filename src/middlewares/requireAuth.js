@@ -13,23 +13,17 @@ const requireAuth = asyncWrapper(async (req, res, next) => {
 
   const token = authToken
 
-  try {
-    const { _id } = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
+  const { _id } = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
 
-    const user = await User.findOne({ _id }).select('_id role')
+  const user = await User.findOne({ _id }).select('_id role')
 
-    if (!user) {
-      return res.status(401).json({ error: 'User not found...' })
-    }
-
-    req.user = user
-
-    next()
-  } catch (error) {
-    console.log(error)
-
-    return res.status(401).json({ error: 'Request is not authorized...' })
+  if (!user) {
+    return res.status(401).json({ error: 'User not found...' })
   }
+
+  req.user = user
+
+  next()
 })
 
 export default requireAuth
