@@ -7,7 +7,7 @@ export const addToCartController = async (req, res) => {
   if (!productId || !quantity) {
     return res
       .status(400)
-      .json({ message: 'Product id and quantity are required' })
+      .json({ message: 'Product id and quantity greater than 0  required' })
   }
 
   if (typeof quantity !== 'number' || !Number.isInteger(quantity)) {
@@ -19,7 +19,8 @@ export const addToCartController = async (req, res) => {
   if (product) {
     const updatedProduct = await CartItem.findOneAndUpdate(
       { user, product: productId },
-      { $inc: { quantity } }
+      { $inc: { quantity } },
+      { new: true }
     )
       .populate('product')
       .populate('user')
@@ -28,16 +29,18 @@ export const addToCartController = async (req, res) => {
       data: updatedProduct,
     })
   } else {
-    const newProduct = await CartItem.save({
+    const newProduct = await CartItem.create({
       user,
       product: productId,
       quantity,
     })
+    const populated = await CartItem.findById(newProduct._id)
       .populate('product')
       .populate('user')
+
     res.status(201).json({
       message: 'Product added to cart successfully',
-      data: newProduct,
+      data: populated,
     })
   }
 }
