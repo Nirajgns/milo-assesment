@@ -5,12 +5,15 @@ import cookieParser from 'cookie-parser'
 import { globalErrorHandler } from './utils/errorHandler.js'
 import productRouter from './module/product/product.routes.js'
 import cartRouter from './module/cart/cart.routes.js'
+import morgan from 'morgan'
 
 const app = express()
 
 app.use(express.json({ limit: '50mb' }))
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
+
+app.use(morgan('dev'))
 
 app.get('/', (req, res) => {
   res.send('hello world')
