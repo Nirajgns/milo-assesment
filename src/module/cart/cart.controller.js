@@ -17,9 +17,18 @@ export const addToCartController = async (req, res) => {
   const product = await CartItem.findOne({ user, product: productId })
 
   if (product) {
+    const newQuantity = product.quantity + quantity
+
+    if (newQuantity <= 0) {
+      await CartItem.deleteOne({ _id: product._id })
+      return res.status(200).json({
+        message: 'Product removed from cart (quantity became zero)',
+      })
+    }
+
     const updatedProduct = await CartItem.findOneAndUpdate(
       { user, product: productId },
-      { $inc: { quantity } },
+      { quantity: newQuantity },
       { new: true }
     ).populate('product')
     // .populate('user')
@@ -28,14 +37,21 @@ export const addToCartController = async (req, res) => {
       data: updatedProduct,
     })
   } else {
+    if (quantity <= 0) {
+      return res.status(400).json({
+        message: 'Cannot add product with zero or negative quantity',
+      })
+    }
+
     const newProduct = await CartItem.create({
       user,
       product: productId,
       quantity,
     })
-    const populated = await CartItem.findById(newProduct._id)
-      .populate('product')
-      .populate('user')
+    const populated = await CartItem.findById(newProduct._id).populate(
+      'product'
+    )
+    // .populate('user')
 
     res.status(201).json({
       message: 'Product added to cart successfully',
