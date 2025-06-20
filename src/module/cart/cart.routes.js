@@ -5,8 +5,8 @@ import { asyncWrapper } from '../../utils/asyncWrapper.js'
 
 const cartRouter = Router()
 
-cartRouter.post('/', requireAuth, asyncWrapper(addToCartController))
+cartRouter.post('/', requireAuth, addToCartController)
 
-cartRouter.get('/', requireAuth, asyncWrapper(getCartController))
+cartRouter.get('/', requireAuth, getCartController)
 
 export default cartRouter

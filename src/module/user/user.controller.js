@@ -1,7 +1,8 @@
 import User from './user.model.js'
 import { createToken } from '../../utils/jwt.js'
+import { asyncWrapper } from '../../utils/asyncWrapper.js'
 
-export const createUserController = async (req, res) => {
+export const createUserController = asyncWrapper(async (req, res) => {
   const { email, password, name } = req.body
 
   const user = await User.register(email, password, name)
@@ -9,9 +10,9 @@ export const createUserController = async (req, res) => {
   const { password: _, ...userWithoutPassword } = user._doc
 
   return res.status(200).json({ success: true, data: userWithoutPassword })
-}
+})
 
-export const loginController = async (req, res) => {
+export const loginController = asyncWrapper(async (req, res) => {
   const { email, password } = req.body
 
   const user = await User.login(email, password)
@@ -25,4 +26,4 @@ export const loginController = async (req, res) => {
   })
 
   return res.status(200).json({ data: user })
-}
+})

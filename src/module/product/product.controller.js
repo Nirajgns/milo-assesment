@@ -1,6 +1,7 @@
+import { asyncWrapper } from '../../utils/asyncWrapper.js'
 import Product from './product.model.js'
 
-export const createProductController = async (req, res) => {
+export const createProductController = asyncWrapper(async (req, res) => {
   const { name, price, description } = req.body
 
   if (!name || !price) {
@@ -9,9 +10,9 @@ export const createProductController = async (req, res) => {
 
   const product = await Product.create({ name, price, description })
   res.status(201).json({ data: product })
-}
+})
 
-export const getProductsController = async (req, res) => {
+export const getProductsController = asyncWrapper(async (req, res) => {
   const page = parseInt(req.query.page) || 1
   const limit = parseInt(req.query.limit) || 10
   const skip = (page - 1) * limit
@@ -29,4 +30,4 @@ export const getProductsController = async (req, res) => {
       totalPages: Math.ceil(total / limit),
     },
   })
-}
+})

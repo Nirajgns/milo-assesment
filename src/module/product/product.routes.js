@@ -7,8 +7,8 @@ import {
 
 const productRouter = Router()
 
-productRouter.post('/', asyncWrapper(createProductController))
+productRouter.post('/', createProductController)
 
-productRouter.get('/', asyncWrapper(getProductsController))
+productRouter.get('/', getProductsController)
 
 export default productRouter

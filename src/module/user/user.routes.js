@@ -4,8 +4,8 @@ import { asyncWrapper } from '../../utils/asyncWrapper.js'
 
 const userRouter = Router()
 
-userRouter.post('/register', asyncWrapper(createUserController))
+userRouter.post('/register', createUserController)
 
-userRouter.post('/login', asyncWrapper(loginController))
+userRouter.post('/login', loginController)
 
 export default userRouter

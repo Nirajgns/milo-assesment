@@ -1,6 +1,7 @@
+import { asyncWrapper } from '../../utils/asyncWrapper.js'
 import CartItem from './cartItem.model.js'
 
-export const addToCartController = async (req, res) => {
+export const addToCartController = asyncWrapper(async (req, res) => {
   const { productId, quantity } = req.body
   const user = req.user
 
@@ -58,9 +59,9 @@ export const addToCartController = async (req, res) => {
       data: populated,
     })
   }
-}
+})
 
-export const getCartController = async (req, res) => {
+export const getCartController = asyncWrapper(async (req, res) => {
   const user = req.user
 
   const page = parseInt(req.query.page) || 1
@@ -82,4 +83,4 @@ export const getCartController = async (req, res) => {
       totalPages: Math.ceil(total / limit),
     },
   })
-}
+})
