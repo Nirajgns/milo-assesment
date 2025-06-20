@@ -1,10 +1,11 @@
 import { Router } from 'express'
 import { addToCartController, getCartController } from './cart.controller.js'
+import requireAuth from '../../middlewares/requireAuth.js'
 
 const cartRouter = Router()
 
-cartRouter.post('/', addToCartController)
+cartRouter.post('/', requireAuth, addToCartController)
 
-cartRouter.get('/', getCartController)
+cartRouter.get('/', requireAuth, getCartController)
 
 export default cartRouter
