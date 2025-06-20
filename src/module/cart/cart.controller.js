@@ -10,8 +10,8 @@ export const addToCartController = async (req, res) => {
       .json({ message: 'Product id and quantity are required' })
   }
 
-  if (typeof quantity !== 'number') {
-    return res.status(400).json({ message: 'Quantity must be a number' })
+  if (typeof quantity !== 'number' || !Number.isInteger(quantity)) {
+    return res.status(400).json({ message: 'Quantity must be a whole number' })
   }
 
   const product = await CartItem.findOne({ user, product: productId })
@@ -28,11 +28,13 @@ export const addToCartController = async (req, res) => {
       data: updatedProduct,
     })
   } else {
-    const newProduct = await CartItem.create({
+    const newProduct = await CartItem.save({
       user,
       product: productId,
       quantity,
     })
+      .populate('product')
+      .populate('user')
     res.status(201).json({
       message: 'Product added to cart successfully',
       data: newProduct,
