@@ -7,7 +7,7 @@ export const addToCartController = async (req, res) => {
   if (!productId || !quantity) {
     return res
       .status(400)
-      .json({ message: 'Product id and (quantity greater than 0)  required' })
+      .json({ message: 'Product id and quantity in whole number required' })
   }
 
   if (typeof quantity !== 'number' || !Number.isInteger(quantity)) {
