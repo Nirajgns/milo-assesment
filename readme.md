@@ -1,0 +1,47 @@
+# 📦 Node.js Express MongoDB Project
+
+This is a Node.js backend project using **Express.js** and **MongoDB**. It handles core API functionalities, database interactions with Mongoose, and environment-based configurations.
+
+---
+
+## 🔧 Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/your-project.git
+cd your-project
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. set up env variables
+
+```bash
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/your-database-name
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/<your-database-name>?retryWrites=true&w=majority
+
+```
+
+### 4. run the project
+
+```bash
+npm run dev
+```
+
+or
+
+```bash
+npm run start
+```
+
+# you can interact with the API using the endpoints provided in the postman collectoin in the repo and the the live link of the project
+
+```
+https://milo-assesment.onrender.com
+```
