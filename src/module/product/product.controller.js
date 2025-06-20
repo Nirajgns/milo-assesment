@@ -4,9 +4,7 @@ export const createProductController = async (req, res) => {
   const { name, price, description } = req.body
 
   if (!name || !price) {
-    return res
-      .status(400)
-      .json({ success: false, message: 'Name and price are required' })
+    return res.status(400).json({ message: 'Name and price are required' })
   }
 
   const product = await Product.create({ name, price, description })
@@ -22,6 +20,7 @@ export const getProductsController = async (req, res) => {
   const total = await Product.countDocuments()
 
   res.status(200).json({
+    message: 'Products retrieved successfully',
     data: products,
     pagination: {
       total,

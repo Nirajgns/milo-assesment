@@ -63,10 +63,23 @@ export const addToCartController = async (req, res) => {
 export const getCartController = async (req, res) => {
   const user = req.user
 
-  const cartItems = await CartItem.find({ user }).populate('product')
-  // .populate('user')
+  const page = parseInt(req.query.page) || 1
+  const limit = parseInt(req.query.limit) || 10
+  const skip = (page - 1) * limit
 
-  res
-    .status(200)
-    .json({ message: 'Cart retrieved successfully', data: cartItems })
+  const cartItems = await CartItem.find({ user }).skip(skip).limit(limit)
+
+  const total = await CartItem.countDocuments()
+
+  res.status(200).json({
+    message: 'Cart retrieved successfully',
+    data: cartItems,
+
+    pagination: {
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    },
+  })
 }
