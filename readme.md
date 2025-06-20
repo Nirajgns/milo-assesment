@@ -9,8 +9,8 @@ This is a Node.js backend project using **Express.js** and **MongoDB**. It handl
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-project.git
-cd your-project
+https://github.com/Nirajgns/milo-assesment
+cd milo-assesment
 ```
 
 ### 2. Install dependencies

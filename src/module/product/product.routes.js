@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { asyncWrapper } from '../../utils/asyncWrapper.js'
+import requireAuth from '../../middlewares/requireAuth.js'
 import {
   createProductController,
   getProductsController,
@@ -7,7 +7,7 @@ import {
 
 const productRouter = Router()
 
-productRouter.post('/', createProductController)
+productRouter.post('/', requireAuth, createProductController)
 
 productRouter.get('/', getProductsController)
 
